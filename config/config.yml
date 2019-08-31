@@ -1,0 +1,24 @@
+Agents: 
+    
+  shubham_stage:
+   class_name: 'fast.common.agents.databaseagent'
+   databaseType: 'SYBASE'
+   hostName: 'test'
+   port: '22'
+   databaseName: DB
+   userName: 'shubham'
+   encrytpassword: 'functional=='
+   usefunctionalid : 'false'
+   password: 'dont know'
+   
+  shubham_stage2:
+   class_name: 'fast.common.agents.databaseagent'
+   databaseType: 'ORACLE'
+   hostName: 'test'
+   port: '22'
+   databaseName: DB
+   userName: 'shubham'
+   encrytpassword: 'functional=='
+   usefunctionalid : 'false'
+   password: 'dont know'
+    

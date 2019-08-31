@@ -1,62 +1,91 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>Framework</groupId>
 	<artifactId>CucumberMavenTestNG</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>AdvancedFramework</name>
-	<url>http://maven.apache.org</url>
-
 	<properties>
+		<forkCount>1</forkCount>
+		<!-- <tags>"~@ignore"</tags> -->
+		<tag1>@crun</tag1>
+		<featuresDir>src/main/resources/Features</featuresDir>
+		<gluePackage>com.main.glue</gluePackage>
+
+		<junit.version>4.12</junit.version>
+		<cucumber.version>1.2.5</cucumber.version>
+		<maven.compiler.version>3.3</maven.compiler.version>
+		<aspectj.version>1.8.3</aspectj.version>
+		<maven.cucumber.reporting.version>3.20.0</maven.cucumber.reporting.version>
+		<maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
+		<cucumberReporting.outputDirectory>reports/${maven.build.timestamp}</cucumberReporting.outputDirectory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.6</maven.compiler.source>
-		<maven.compiler.target>1.6</maven.compiler.target>
+		<!--<buildNumber>${maven.build.timestamp}</buildNumber> -->
+		<java.version>1.8</java.version>
+		<javac.source>${java.version}</javac.source>
+		<javac.target>${java.version}</javac.target>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<project.build.java.target>${java.version}</project.build.java.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<generateReportRunPhase>install</generateReportRunPhase>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
-
-	<build>
-
-		<!-- Source directory configuration -->
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.18.1</version>
-				<configuration>
-					<!-- Suite testng xml file to consider for test execution -->
-					<suiteXmlFiles>
-						<suiteXmlFile>testng.xml</suiteXmlFile>
-					</suiteXmlFiles>
-				</configuration>
-			</plugin>
-			<!-- Compiler plugin configures the java version to be usedfor compiling 
-				the code -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>${maven.compiler.source}</source>
-					<target>${maven.compiler.target}</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
-
-
-
 	<dependencies>
+		<!-- These 2 are for log4j2 yaml support -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+			<version>2.7.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.5.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.8.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.8.2</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<!-- For logging all the slf4j actions via log4j2 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.1</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+
+
+		<!-- newly added below -->
 		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-compiler-plugin</artifactId>
-			<version>3.7.0</version>
+			<version>3.8.1</version>
 			<type>maven-plugin</type>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-surefire-plugin</artifactId>
-			<version>2.21.0</version>
+			<version>3.0.0-M3</version>
 		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
@@ -69,13 +98,6 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.11</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server -->
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-server</artifactId>
-			<version>3.141.59</version>
-		</dependency>
-
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-java</artifactId>
@@ -84,7 +106,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -93,7 +115,6 @@
 			<version>1.2.5</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-core</artifactId>
@@ -103,12 +124,262 @@
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>6.14.3</version>
-			<scope>test</scope>
+			<!-- <scope>test</scope> -->
 		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-testng</artifactId>
 			<version>1.2.5</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.mkolisnyk/cucumber-runner -->
+		<dependency>
+			<groupId>com.github.mkolisnyk</groupId>
+			<artifactId>cucumber-runner</artifactId>
+			<version>1.3.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.28</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-server</artifactId>
+			<version>3.141.59</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>3.141.59</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-firefox-driver -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-firefox-driver</artifactId>
+			<version>3.141.59</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>4.1.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.9</version>
+		</dependency>
+
+
+
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<!-- ant plug-in added by -->
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>validate</phase>
+						<configuration>
+							<target>
+								<echo>ANT TASK - copying config files....</echo>
+								copying config folder and it's content into Base directory.
+								It
+								is
+								only for running from eclipse.
+								<copy todir="${basedir}/config" overwrite="true" flatten="true">
+									<fileset dir="${basedir}/src/main/environments/local/config"
+										includes="*.*">
+										<include name="*.*" />
+									</fileset>
+								</copy>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M3</version>
+				<configuration>
+					<forkCount>${forkCount}</forkCount>
+					<reuseForks>true</reuseForks>
+					<!-- <threadCount>${forkCount}</threadCount> -->
+					<!-- <parallel>classes</parallel> -->
+					<includes>
+						<include>**/Parallel*IT.class</include>
+						<!-- <include>RunCukeTest.java</include> -->
+					</includes>
+					<testFailureIgnore>true</testFailureIgnore>
+					<argLine>
+						-javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
+					</argLine>
+					<systemPropertyVariables>
+						<thread-number>0${surefire.threadNumber}</thread-number>
+					</systemPropertyVariables>
+					<!-- suiteXmlFiles added by -->
+					<suiteXmlFiles>
+						<suiteXmlFile>testng.xml</suiteXmlFile>
+					</suiteXmlFiles>
+					<useSystemClassLoader>false</useSystemClassLoader>
+				</configuration>
+
+				<!-- <configuration> Suite testng xml file to consider for test execution 
+					</configuration> -->
+			</plugin>
+			<!-- Compiler plugin configures the java version to be usedfor compiling 
+				the code -->
+			<plugin>
+				<!-- compiler added by -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+			<!-- plugin for HTML report -->
+			<plugin>
+				<groupId>net.masterthought</groupId>
+				<artifactId>maven-cucumber-reporting</artifactId>
+				<version>${maven.cucumber.reporting.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.fasterxml.jackson.dataformat</groupId>
+						<artifactId>jackson-dataformat-yaml</artifactId>
+						<version>2.7.3</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>execution</id>
+						<phase>${generateReportRunPhase}</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<!-- set the working configurations -->
+							<projectName>Automation</projectName>
+							<outputDirectory>${cucumberReporting.outputDirectory}</outputDirectory>
+							<inputDirectory>${project.build.directory}/</inputDirectory>
+							<jsonFiles>
+								<param>**/cucumber.json</param>
+							</jsonFiles>
+							<classificationDirectory>${project.build.directory}/</classificationDirectory>
+							<classificationFiles>
+								<param>sample.properties</param>
+								<param>other.properties</param>
+							</classificationFiles>
+							<parallelTesting>true</parallelTesting>
+							<checkBuildResult>true</checkBuildResult>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+
+			<plugin>
+				<groupId>com.github.temyers</groupId>
+				<artifactId>cucumber-jvm-parallel-plugin</artifactId>
+				<version>4.1.0</version>
+				<executions>
+					<execution>
+						<id>generateRunners</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>generateRunners</goal>
+						</goals>
+						<configuration>
+							<glue>
+								<package>${gluePackage}</package>
+							</glue>
+							<outputDirectory>${project.build.directory}/generated-test-sources/cucumber</outputDirectory>
+							<featuresDirectory>${featuresDir}</featuresDirectory>
+							<cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
+							<plugins>
+								<plugin>
+									<name>json</name>
+								</plugin>
+							</plugins>
+							<strict>true</strict>
+							<monochrome>true</monochrome>
+							<tags>
+								<tag>${tag1}</tag>
+
+							</tags>
+							<!-- <tags> <tag>${tags}</tag> <tag>~@ignore</tag> </tags> -->
+							<useTestNG>false</useTestNG>
+							<namingScheme>simple</namingScheme>
+							<namingPattern>Parallel{c}IT</namingPattern>
+							<parallelScheme>FEATURE</parallelScheme>
+							<customVmTemplate></customVmTemplate>
+
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- mm35493 newly added -->
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.2</version>
+				<executions>
+					<execution>
+						<id>default-deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!--This plugin's configuration is used to store Eclipse m2e settings 
+				only. It has no influence on the Maven build itself. -->
+			<plugin>
+				<groupId>org.eclipse.m2e</groupId>
+				<artifactId>lifecycle-mapping</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<lifecycleMappingMetadata>
+						<pluginExecutions>
+							<pluginExecution>
+								<pluginExecutionFilter>
+									<groupId>
+										com.github.temyers
+									</groupId>
+									<artifactId>
+										cucumber-jvm-parallel-plugin
+									</artifactId>
+									<versionRange>
+										[4.1.0,)
+									</versionRange>
+									<goals>
+										<goal>generateRunners</goal>
+									</goals>
+								</pluginExecutionFilter>
+								<action>
+									<ignore></ignore>
+								</action>
+							</pluginExecution>
+						</pluginExecutions>
+					</lifecycleMappingMetadata>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
