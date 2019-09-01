@@ -31,7 +31,7 @@
 		<generateReportRunPhase>install</generateReportRunPhase>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<environment>local</environment>
+		
 	</properties>
 	<dependencies>
 		<!-- These 2 are for log4j2 yaml support -->
@@ -217,9 +217,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.0.0-M3</version>
 				<configuration>
-				    <systemPropertyVariables>
+				    <!-- <systemPropertyVariables>
                         <environment>${environment}</environment>
-                    </systemPropertyVariables>
+                    </systemPropertyVariables> -->
 					<forkCount>${forkCount}</forkCount>
 					<reuseForks>true</reuseForks>
 					<!-- <threadCount>${forkCount}</threadCount> -->
