@@ -20,10 +20,10 @@
 
 Feature: Testing Framework Action
 
-		Scenario: Testing my Framework cases
-			 Given Test1
+#		Scenario: Testing my Framework cases
+#			 Given Test1
 	
-		Scenario Outline: "<TC_ID>" | OBC validation for date
+		Scenario Outline: "<TC_ID>" | validation for date
    		 Given Book a date
 
     Examples: 

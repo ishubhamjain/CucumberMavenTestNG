@@ -11,6 +11,7 @@ import java.util.HashMap;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import StepDefinitions.Hooks;
 import Utilities.AutomationLog;
 import Utilities.Configuration;
@@ -55,13 +56,13 @@ public class TestDataSteps {
 		return Scenarionname;
 	}
 
-//	public void getTotalScenarios() {
-//
-//		String FXTestDataSheet = Configuration.getFXTestDataSheet();
-//		ExcelUtils.setExcel(FXTestDataSheet);
-//		int totalScenarios = ExcelUtils.getRow("TestCases");
-//		_totalScenario = totalScenarios;
-//	}
+	// public void getTotalScenarios() {
+	//
+	// String FXTestDataSheet = Configuration.getFXTestDataSheet();
+	// ExcelUtils.setExcel(FXTestDataSheet);
+	// int totalScenarios = ExcelUtils.getRow("TestCases");
+	// _totalScenario = totalScenarios;
+	// }
 
 	public void getTotalScenariosForMM() {
 
@@ -225,18 +226,17 @@ public class TestDataSteps {
 	public String func_genericExcelCellFormatConvIntoStr(Cell testCell) {
 		String test = "";
 		switch (testCell.getCellType()) {
-		case STRING:
-		//case Cell.CELL_TYPE_STRING:
+		case Cell.CELL_TYPE_STRING:
 			// test = (testCell.getRichStringCellValue().getString());
 			test = (testCell.getStringCellValue());
 			break;
-		case FORMULA:
-		case NUMERIC:
+		case Cell.CELL_TYPE_FORMULA:
+		case Cell.CELL_TYPE_NUMERIC:
 			// test = String.valueOf(testCell.getNumericCellValue());
 			DecimalFormat format = new DecimalFormat("0.#");
 			test = format.format(testCell.getNumericCellValue());
 			break;
-		case BOOLEAN:
+		case Cell.CELL_TYPE_BOOLEAN:
 			test = Boolean.toString(testCell.getBooleanCellValue());
 			break;
 		default:
