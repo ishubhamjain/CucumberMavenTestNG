@@ -25,6 +25,7 @@ Feature: Testing Framework Action
 	
 		Scenario Outline: "<TC_ID>" | validation for date
    		 Given Book a date
+   		 When create a deal
 
     Examples: 
       | TC_ID | REFER  |
