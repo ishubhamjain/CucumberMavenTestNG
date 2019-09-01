@@ -223,7 +223,7 @@ public class TestDataSteps {
 		//
 	}
 
-	public String func_genericExcelCellFormatConvIntoStr(Cell testCell) {
+/*	public String func_genericExcelCellFormatConvIntoStr(Cell testCell) {
 		String test = "";
 		switch (testCell.getCellType()) {
 		case Cell.CELL_TYPE_STRING:
@@ -237,6 +237,29 @@ public class TestDataSteps {
 			test = format.format(testCell.getNumericCellValue());
 			break;
 		case Cell.CELL_TYPE_BOOLEAN:
+			test = Boolean.toString(testCell.getBooleanCellValue());
+			break;
+		default:
+			test = "";
+			break;
+		}
+		return test;
+	}*/
+	
+	public String func_genericExcelCellFormatConvIntoStr(Cell testCell) {
+		String test = "";
+		switch (testCell.getCellType()) {
+		case STRING:
+			// test = (testCell.getRichStringCellValue().getString());
+			test = (testCell.getStringCellValue());
+			break;
+		case FORMULA:
+		case NUMERIC:
+			// test = String.valueOf(testCell.getNumericCellValue());
+			DecimalFormat format = new DecimalFormat("0.#");
+			test = format.format(testCell.getNumericCellValue());
+			break;
+		case BOOLEAN:
 			test = Boolean.toString(testCell.getBooleanCellValue());
 			break;
 		default:
