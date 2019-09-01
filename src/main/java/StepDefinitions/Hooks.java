@@ -24,6 +24,8 @@ import org.testng.annotations.Test;
 
 import com.google.common.primitives.Bytes;
 
+import automationframework.Constants;
+import automationframework.TestDataSteps;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -64,8 +66,8 @@ public class Hooks {
 
 		if (scenario.isFailed()) {
 			try {
-				byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-				scenario.embed(screenshot, "image/png");
+				/*byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+				scenario.embed(screenshot, "image/png");*/
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -84,7 +86,15 @@ public class Hooks {
 	public void initializeTestSuite() {
 		System.out.println("=====================");
 		System.out.println("Initialize TestSuite");
+		//Common.propertyPath();  //
+		   Constants.TestDataSteps = new TestDataSteps();
 
-}
+
+		/*    Constants.TestDataSteps._applicationEnvironment = Common.PropertyPathOR.getProperty("Env");
+		    Constants.MQ_PumpingClassForMM = new MQ_Test_programForMM();
+		    Constants.MQ_PumpingClassForMM.env=Constants.TestDataSteps._applicationEnvironment;
+		    Common.readOR();*/
+		    Constants.TestDataSteps.getTotalScenariosForMM();//Read scenario informations from excel sheet	
+		}
 
 }

@@ -12,5 +12,11 @@ public class TestCucumberTestNG {
 		System.out.println("And finally its done");
 		Assert.assertEquals(false, true);
 	}
+	
+	@Given("^Book a date$")
+	public void book_a_date() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		System.out.println("And finally its done");
+	}
 
 }
