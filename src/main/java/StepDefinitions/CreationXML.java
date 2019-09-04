@@ -14,18 +14,20 @@ public class CreationXML {
 		System.out.println("**************************************");
 		System.out.println("**************************************");
 		System.out.println("***************Data*******************");
-		CreationXML.CURRENCY = Constants.TestDataSteps.deal_map.get("CURRENCY");
-		System.out.println("DealCreationForMM.CURRENCY = " + CreationXML.CURRENCY);
-		AutomationLog.info("DealCreationForMM.CURRENCY = " + CreationXML.CURRENCY);
+//		CreationXML.CURRENCY = Constants.TestDataSteps.deal_map.get("CURRENCY");
+//		System.out.println("DealCreationForMM.CURRENCY = " + CreationXML.CURRENCY);
+//		AutomationLog.info("DealCreationForMM.CURRENCY = " + CreationXML.CURRENCY);
+		System.out.println("Constants.TestDataSteps._emptyFieldInExcel"+Constants.TestDataSteps._emptyFieldInExcel);
+		System.out.println("Constants.TestDataSteps.deal_map.get(\"CODE\")"+Constants.TestDataSteps.deal_map.get("CURRENCY"));
 		
-		
-		/*if (!Constants.TestDataSteps.deal_map.get("CODE")
+		if (!Constants.TestDataSteps.deal_map.get("CURRENCY")
 				.equalsIgnoreCase(Constants.TestDataSteps._emptyFieldInExcel)) {
-			DealCreationForMM.CURRENCY = Constants.TestDataSteps.deal_map.get("CURRENCY");
-			AutomationLog.info("DealCreationForMM.CURRENCY = " + DealCreationForMM.CURRENCY);
+			CreationXML.CURRENCY = Constants.TestDataSteps.deal_map.get("CURRENCY");
+			System.out.println("CreationXML.CURRENCY = " + CreationXML.CURRENCY);
+			AutomationLog.info("CreationXML.CURRENCY = " + CreationXML.CURRENCY);
 		} else {
-			AutomationLog.info("DealCreationForMM.CURRENCY blank for the scenario");
-		}*/
+			AutomationLog.info("CreationXML.CURRENCY blank for the scenario");
+		}
 
 	}
 
