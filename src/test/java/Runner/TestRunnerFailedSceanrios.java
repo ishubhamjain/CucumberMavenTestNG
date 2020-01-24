@@ -8,7 +8,7 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 
 @ExtendedCucumberOptions(jsonReport = "target/cucumber.json"
-		,retryCount = 1
+		,retryCount = 0
 		,detailedReport = true
 		,detailedAggregatedReport = true
 		,overviewReport = true
@@ -22,19 +22,19 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 )
 
 @CucumberOptions(
-			features = {"classpath:Features/Folder1"} 
+			features = {"@reports/rerun.txt"} 
 			, glue="StepDefinitions"
 			,plugin = { "pretty", "html:target/cucumber-default-report",
 					"json:target/cucumber.json"
 					,"junit:target/cucumber-results.xml"
 					,"usage:target/cucumber-usage.json"
-					,"rerun:reports/rerun.txt"}
+					,"rerun:target/rerun.txt"}
 //			,tags= {"@smoke"}  // Run tests in groups
 			,monochrome = false
 //			,dryRun = true
 			)
 
-public class TestRunner extends AbstractTestNGCucumberTests {
+public class TestRunnerFailedSceanrios extends AbstractTestNGCucumberTests {
 	
     @BeforeSuite
     public static void setUp()  {
@@ -46,4 +46,5 @@ public class TestRunner extends AbstractTestNGCucumberTests {
     public static void tearDown() {
         System.out.println("In After Suite ExtendedCucumberOptions");
    }   
+
 }

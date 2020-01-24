@@ -2,7 +2,7 @@
 <suite name="Test runner">
 <test name="Package with subpackages">
     <classes>
-        <class name="Runner.TestRunner"/>
+        <class name="Runner.TestRunnerFailedSceanrios"/>
     </classes>
 </test> 
 </suite>
